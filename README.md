@@ -1,17 +1,6 @@
-![docs_pages_workflow](https://github.com/maltfield/rtd-github-pages/workflows/docs_pages_workflow/badge.svg?branch=master)
 
-# Continuous Documentation: Hosting Read the Docs on GitHub Pages
+# Mutiversion Document: use sphinx build mutiversion doc with read-the-doc theme  
 
-This repo is a fork-ready base for your project's documentation. It lets you host a sphinx-generated site (with the Read the Docs theme) on GitHub Pages using GitHub Actions.
-
-
-<p align="center">
-  <a href="https://tech.michaelaltfield.net/2020/07/18/sphinx-rtd-github-pages-1/"><img src="docs/_static/sphinx-rtd-github-pages-1_featuredImage1.jpg?raw=true" alt="Continuous Documentation with Read the Docs on GitHub Pages using GitHub Actions"/></a>
-</p>
-
-For more information, see this article:
-
- * https://tech.michaelaltfield.net/2020/07/18/sphinx-rtd-github-pages-1/
 
 # How to use this repo
 
@@ -21,7 +10,6 @@ For more information, see this article:
 1. Make a small change to [docs/index.rst](/docs/index.rst)
 1. `git commit` and `git push` something to trigger your site to be built
 
-Every time you push to github.com on master, github will automatically spin up a container in their cloud to update your documentation.
 
 After you begin to edit the contents of the site, you'll probably also want to customize  the following files:
 
@@ -29,7 +17,6 @@ After you begin to edit the contents of the site, you'll probably also want to c
 1. The python files in [src/](/src/)
 1. Other `.rst` files in [docs/](/docs) as needed
 
-For more details on how this works, see [Continuous Documentation: Hosting Read the Docs on GitHub Pages](https://tech.michaelaltfield.net/2020/07/18/sphinx-rtd-github-pages-1/)
 
 # Demo
 

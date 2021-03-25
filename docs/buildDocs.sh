@@ -16,10 +16,10 @@ set -x
 # INSTALL DEPENDS #
 ###################
  
-apt-get update
-apt-get -y install git rsync python3-sphinx python3-sphinx-rtd-theme python3-stemmer python3-git python3-pip python3-virtualenv python3-setuptools
- 
-python3 -m pip install --upgrade rinohtype pygments
+#apt-get update
+#apt-get -y install git rsync python3-sphinx python3-sphinx-rtd-theme python3-stemmer python3-git python3-pip python3-virtualenv python3-setuptools
+#
+#python3 -m pip install --upgrade rinohtype pygments
  
 #####################
 # DECLARE VARIABLES #
@@ -32,7 +32,8 @@ export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)
 # make a new temp dir which will be our GitHub Pages docroot
 docroot=`mktemp -d`
 
-export REPO_NAME="${GITHUB_REPOSITORY##*/}"
+export REPO_NAME=`basename $(git remote get-url origin)`
+#export REPO_NAME="${GITHUB_REPOSITORY##*/}"
  
 ##############
 # BUILD DOCS #
@@ -57,7 +58,8 @@ for current_version in ${versions}; do
       continue
    fi
  
-   languages="en `find docs/locales/ -mindepth 1 -maxdepth 1 -type d -exec basename '{}' \;`"
+#   languages="en `find docs/locales/ -mindepth 1 -maxdepth 1 -type d -exec basename '{}' \;`"
+   languages = "zh_CN"
    for current_language in ${languages}; do
  
       # make the current language available to conf.py
@@ -89,21 +91,21 @@ for current_version in ${versions}; do
 done
  
 # return to master branch
-git checkout master
+#git checkout master
  
 #######################
 # Update GitHub Pages #
 #######################
  
-git config --global user.name "${GITHUB_ACTOR}"
-git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+#git config --global user.name "${GITHUB_ACTOR}"
+#git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
  
-pushd "${docroot}"
+#pushd "${docroot}"
  
 # don't bother maintaining history; just generate fresh
-git init
-git remote add deploy "https://token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-git checkout -b gh-pages
+#git init
+#git remote add deploy "https://token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+#git checkout -b gh-pages
  
 # add .nojekyll to the root so that github won't 404 on content added to dirs
 # that start with an underscore (_), such as our "_content" dir..
@@ -124,28 +126,28 @@ cat > index.html <<EOF
 EOF
  
 # Add README
-cat > README.md <<EOF
-# GitHub Pages Cache
- 
-Nothing to see here. The contents of this branch are essentially a cache that's not intended to be viewed on github.com.
- 
- 
-If you're looking to update our documentation, check the relevant development branch's 'docs/' dir.
- 
-For more information on how this documentation is built using Sphinx, Read the Docs, and GitHub Actions/Pages, see:
- 
- * https://tech.michaelaltfield.net/2020/07/18/sphinx-rtd-github-pages-1
-EOF
+#cat > README.md <<EOF
+## GitHub Pages Cache
+#
+#Nothing to see here. The contents of this branch are essentially a cache that's not intended to be viewed on github.com.
+#
+#
+#If you're looking to update our documentation, check the relevant development branch's 'docs/' dir.
+#
+#For more information on how this documentation is built using Sphinx, Read the Docs, and GitHub Actions/Pages, see:
+#
+# * https://tech.michaelaltfield.net/2020/07/18/sphinx-rtd-github-pages-1
+#EOF
  
 # copy the resulting html pages built from sphinx above to our new git repo
-git add .
+#git add .
  
 # commit all the new files
-msg="Updating Docs for commit ${GITHUB_SHA} made on `date -d"@${SOURCE_DATE_EPOCH}" --iso-8601=seconds` from ${GITHUB_REF} by ${GITHUB_ACTOR}"
-git commit -am "${msg}"
+#msg="Updating Docs for commit ${GITHUB_SHA} made on `date -d"@${SOURCE_DATE_EPOCH}" --iso-8601=seconds` from ${GITHUB_REF} by ${GITHUB_ACTOR}"
+#git commit -am "${msg}"
  
 # overwrite the contents of the gh-pages branch on our github.com repo
-git push deploy gh-pages --force
+#git push deploy gh-pages --force
  
 popd # return to main repo sandbox root
  
